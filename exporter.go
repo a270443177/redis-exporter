@@ -102,22 +102,27 @@ type Options struct {
 }
 
 //AES解密函数
-func PKCS5UnPadding(origData []byte) []byte {
+func PKCS5UnPadding(origData []byte) ([]byte, error) {
 	length := len(origData)
 	unpadding := int(origData[length-1])
-	return origData[:(length - unpadding)]
+	if unpadding > length {
+		return nil, errors.New("长度不正确")
+	}
+	return origData[:(length - unpadding)], nil
 }
 func AesDecrypt(crypted, key []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
 	}
-
 	blockSize := block.BlockSize()
 	blockMode := cipher.NewCBCDecrypter(block, key[:blockSize])
 	origData := make([]byte, len(crypted))
 	blockMode.CryptBlocks(origData, crypted)
-	origData = PKCS5UnPadding(origData)
+	origData, err = PKCS5UnPadding(origData)
+	if err != nil {
+		return nil, err
+	}
 	return origData, nil
 }
 
@@ -144,9 +149,7 @@ func (e *Exporter) scrapeHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		tpass, err := AesDecrypt(bytesPass, []byte(AesKey))
-		fmt.Println(err)
 		if err != nil {
-
 			http.Error(w, fmt.Sprintf("密码错误: %ck ", err), 400)
 			e.targetScrapeRequestErrors.Inc()
 			return
@@ -170,7 +173,8 @@ func (e *Exporter) scrapeHandler(w http.ResponseWriter, r *http.Request) {
 	target = u.String()
 
 	opts := e.options
-
+	fmt.Println(opts)
+	fmt.Println(target)
 	if ck := r.URL.Query().Get("check-keys"); ck != "" {
 		opts.CheckKeys = ck
 	}
