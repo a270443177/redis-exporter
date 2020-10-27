@@ -4,22 +4,21 @@
 # 本仓库在原有基础上支持如下功能
 在Scrape中，新增密码加密
 
-格式如下：
+格式如下：  
 
-实例：http://192.168.159.128:9121/scrape?target=h:yk88Uzsl9PEuQCxvYwYH6w==@home.chenwb.com:6379
+实例：http://192.168.159.128:9121/scrape?target=h:yk88Uzsl9PEuQCxvYwYH6w==@home.vxiaobai.com:6379  
 
-##加密格式：
-#####h:[AES加密+BASE64加密]@远程IP地址:端口
+##加密格式：  
+#####h:[AES加密+BASE64加密]@远程IP地址:端口  
 
-##AES加密方式：
-#####AES加密模式：CBC
-#####填充：pkcs5padding
-#####数据块： 128位(默认)
-#####密码: 环境变量AesKey(默认1234567890123456)
-#####偏移量：和密码一样
-#####输出：base64
+##AES加密方式：  
+#####AES加密模式：CBC  
+#####填充：pkcs5padding  
+#####数据块： 128位(默认)  
+#####密码: 环境变量AesKey(默认1234567890123456)  
+#####偏移量：和密码一样  
+#####输出：base64  
 
-hahahahahahah
 
 
 
