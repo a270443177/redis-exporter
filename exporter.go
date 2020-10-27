@@ -130,21 +130,24 @@ func (e *Exporter) scrapeHandler(w http.ResponseWriter, r *http.Request) {
 		e.targetScrapeRequestErrors.Inc()
 		return
 	}
-
+	//清空之前保存的密码。
+	e.options.Password = ""
 	//获取环境变量中对称密钥密码
-	AesKey := []byte(getEnv("AesKey", "1234567890123456"))
+	AesKey := getEnv("AesKey", "1234567890123456")
 	//捕获是否存在加密的密码
 	res := regexp.MustCompile(`^h:(.*)@.*:.*$`).FindStringSubmatch(target)
-	if len(res) > 0 {
+	if len(res) ==2 {
 		bytesPass, err := base64.URLEncoding.DecodeString(res[1])
 		if err != nil {
-			http.Error(w, fmt.Sprintf("密码错误: %% ", err), 400)
+			http.Error(w, fmt.Sprintf("base64解密失败: %ck ", err), 400)
 			e.targetScrapeRequestErrors.Inc()
 			return
 		}
-		tpass, err := AesDecrypt(bytesPass, AesKey)
+		tpass, err := AesDecrypt(bytesPass, []byte(AesKey))
+		fmt.Println(err)
 		if err != nil {
-			http.Error(w, fmt.Sprintf("密码错误: %% ", err), 400)
+
+			http.Error(w, fmt.Sprintf("密码错误: %ck ", err), 400)
 			e.targetScrapeRequestErrors.Inc()
 			return
 		}
