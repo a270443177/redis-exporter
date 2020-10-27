@@ -1,4 +1,0 @@
-http://192.168.159.128:9121/scrape?target=h:vxiaobai@123@home.chenwb.com:6379
-ii!!@dkdfpfkdlj#$%^&
-
-https://github-production-release-asset-2e65be.s3.amazonaws.com/23216272/78bd1c00-1592-11eb-8637-793ac14c5ceb?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20201027%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20201027T053327Z&X-Amz-Expires=300&X-Amz-Signature=ca9d6c20ff895343638df11c3907c8d9b9db58153cce7716a7d571d55afa23f8&X-Amz-SignedHeaders=host&actor_id=6148389&key_id=0&repo_id=23216272&response-content-disposition=attachment%3B%20filename%3DGit-2.29.1-64-bit.exe&response-content-type=application%2Foctet-stream
