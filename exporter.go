@@ -173,8 +173,6 @@ func (e *Exporter) scrapeHandler(w http.ResponseWriter, r *http.Request) {
 	target = u.String()
 
 	opts := e.options
-	fmt.Println(opts)
-	fmt.Println(target)
 	if ck := r.URL.Query().Get("check-keys"); ck != "" {
 		opts.CheckKeys = ck
 	}
